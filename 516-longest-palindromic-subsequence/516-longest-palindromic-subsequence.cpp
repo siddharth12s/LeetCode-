@@ -1,20 +1,24 @@
 class Solution {
 public:
     int lcs(int a, int b,string s,string t,vector<vector<int>> &dp){
-        for(auto i=0;i<=a;i++)
-            dp[i][0]=0;
+        vector<int> prev(a+1,0),cur(b+1,0);
+     //   for(auto i=0;i<=a;i++)
+       //     dp[i][0]=0;
         for(auto i=0;i<=b;i++)
-            dp[0][i]=0;
+            prev[i]=0;
         
         
-        for(auto i=1;i<=a;i++)
-            for(auto j=1;j<=b;j++)
+        for(auto i=1;i<=a;i++){
+            for(auto j=1;j<=b;j++){
                 if(s[i-1]==t[j-1])
-                    dp[i][j]=1 + dp[i-1][j-1];
+                    cur[j]=1 + prev[j-1];
                 else
-                    dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
+                    cur[j]= max(prev[j],cur[j-1]);
+            }
+            prev=cur;
+        }
         
-        return dp[a][b];
+        return prev[b];
     }
     int longestPalindromeSubseq(string s) {
         string s2=s;
