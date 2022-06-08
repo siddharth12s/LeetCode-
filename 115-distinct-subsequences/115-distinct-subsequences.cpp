@@ -3,25 +3,19 @@ public:
     int numDistinct(string s, string t) {
         int n=s.length();
         int m=t.length();
-        vector<vector<unsigned int>> dp(n+1,vector<unsigned int> (m+1,0));
-        for(auto i=0;i<=n;i++) dp[i][0]=1;        
-   //     for(auto i=0;i<=m;i++) dp[0][i]=0;
-        dp[0][0]=1;
+        vector<unsigned int> prev(m+1,0),cur(m+1,0);
+        for(auto i=0;i<=n;i++) cur[0]=1;        
+        prev[0]=1;
         
         for(auto i=1;i<=n;i++){
             for(auto j=1;j<=m;j++){
                 if(s[i-1]==t[j-1])
-                    dp[i][j]=dp[i-1][j]+dp[i-1][j-1];
+                    cur[j]=prev[j]+prev[j-1];
                 else
-                    dp[i][j]=dp[i-1][j];
+                    cur[j]=prev[j];
             }
+            prev = cur;
         }
-      /*  for(auto i=0;i<=n;i++){
-            for(auto j=0;j<=m;j++){
-                cout<<dp[i][j]<<" ";
-            }
-            cout<<endl;
-        }*/
-        return dp[n][m];
+        return prev[m];
     }
 };
