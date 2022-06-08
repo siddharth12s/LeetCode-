@@ -3,7 +3,7 @@ public:
     int numDistinct(string s, string t) {
         int n=s.length();
         int m=t.length();
-        vector<vector<double>> dp(n+1,vector<double> (m+1,0));
+        vector<vector<unsigned int>> dp(n+1,vector<unsigned int> (m+1,0));
         for(auto i=0;i<=n;i++) dp[i][0]=1;        
    //     for(auto i=0;i<=m;i++) dp[0][i]=0;
         dp[0][0]=1;
@@ -22,6 +22,6 @@ public:
             }
             cout<<endl;
         }*/
-        return (int)dp[n][m];
+        return dp[n][m];
     }
 };
