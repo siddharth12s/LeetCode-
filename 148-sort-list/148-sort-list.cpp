@@ -10,44 +10,29 @@
  */
 class Solution {
 public:
+   ListNode* merge(ListNode* l1, ListNode* l2) {
+        if(l1 == NULL) return l2;
+        if(l2 == NULL) return l1;
+        
+        if(l1->val <= l2->val) {
+            l1->next = merge(l1->next, l2);
+            return l1;
+        } 
+        l2->next = merge(l1, l2->next);
+        return l2;
+    }
+    
     ListNode* sortList(ListNode* head) {
-        if(!head || !head->next) return head; // If only 1 element simply return
-        if(!head->next->next) { // If 2 elements, do a swap if necessary
-            if(head->val > head->next->val) {
-                auto tmp = head;
-                head = head->next;
-                head->next = tmp;
-                tmp->next = nullptr;
-            }
-            return head;
+        if(head == NULL || head->next == NULL) return head;
+        
+        ListNode* slow = head, *fast = head;
+        ListNode* prior;
+        while(fast != NULL && fast->next != NULL) {
+            prior = slow;
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        
-        ListNode* mid = head, *end = head, *nextStart, *sortedLeft, *sortedRight, *newH = new ListNode(-1), *ref = newH;
-        
-        while(end) { // Find mid point
-            end = end->next;
-            if(end) end = end->next; 
-            if(end) mid = mid->next;
-        }
-        
-        nextStart = mid->next; mid->next = nullptr; // Disconnect first half from second half
-        
-        sortedLeft = sortList(head); sortedRight = sortList(nextStart); // Recursively sort the halves
-        
-        while(true) { // Merge
-            if(!sortedLeft) {newH->next = sortedRight; return ref->next;}
-            if(!sortedRight) {newH->next = sortedLeft; return ref->next;}
-            
-            if(sortedLeft->val < sortedRight->val) {
-                newH = newH->next = sortedLeft;
-                sortedLeft = sortedLeft->next;
-            }
-            else {
-                newH = newH->next = sortedRight;
-                sortedRight = sortedRight->next;
-            }
-        }
-        
-        return ref->next;
+        prior->next = NULL;
+        return merge(sortList(head), sortList(slow));
     }
 };
