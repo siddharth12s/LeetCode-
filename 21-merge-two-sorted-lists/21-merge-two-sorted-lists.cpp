@@ -8,54 +8,24 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class Solution 
+{
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-       
-	    // if list1 happen to be NULL
-		// we will simply return list2.
-        if(list1 == NULL)
-            return list2;
-		
-		// if list2 happen to be NULL
-		// we will simply return list1.
-        if(list2 == NULL)
-            return list1;
-        
-        ListNode * ptr = list1;
-        if(list1 -> val > list2 -> val)
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
+    {
+        if(!l1)
         {
-            ptr = list2;
-            list2 = list2 -> next;
+            return l2;
         }
-        else
+        if(!l2)
         {
-            list1 = list1 -> next;
+            return l1;
         }
-        ListNode *curr = ptr;
-        
-		// till one of the list doesn't reaches NULL
-        while(list1 &&  list2)
+        if(l1->val>l2->val)
         {
-            if(list1 -> val < list2 -> val){
-                curr->next = list1;
-                list1 = list1 -> next;
-            }
-            else{
-                curr->next = list2;
-                list2 = list2 -> next;
-            }
-            curr = curr -> next;
-                
+            return mergeTwoLists(l2,l1);
         }
-		
-		// adding remaining elements of bigger list.
-        if(!list1)
-            curr -> next = list2;
-        else
-            curr -> next = list1;
-            
-        return ptr;
-       
+        l1->next=mergeTwoLists(l1->next,l2);
+        return l1;
     }
 };
