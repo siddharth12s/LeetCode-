@@ -12,13 +12,7 @@ public:
         ListNode* fast=head; ListNode* slow=head; ListNode* cur= head;
         while(fast and fast->next){
             fast=fast->next->next;  slow=slow->next;
-            if(fast==slow){
-                while(slow!=cur){
-                    slow=slow->next;
-                    cur=cur->next;
-                }
-                return cur;
-            }
+            if(fast==slow){  while(slow!=cur){ slow=slow->next; cur=cur->next; } return cur;}
         }
         return nullptr;
     }
