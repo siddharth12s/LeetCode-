@@ -10,16 +10,44 @@
  */
 class Solution {
 public:
+    void reverseLL(ListNode** head){
+        ListNode* cur= *head;
+        ListNode* prev=nullptr;
+        ListNode* nextn;
+        
+        while(cur){
+            nextn=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=nextn;
+        }
+        *head=prev;
+    }
     int pairSum(ListNode* head) {
         
-        ListNode* temp=head;
-        vector<int> v;
+        ListNode* slow=head;
+        ListNode* fast= head;
+        ListNode* prev=NULL;
         
-        while(temp){ v.push_back(temp->val); temp=temp->next;}
-        int ans=INT_MIN;
-        for(auto i=0;i<(v.size()/2);i++){
-            ans= max(ans,v[i]+v[v.size()-1-i]);
+        while(fast and fast->next){
+            prev=slow;
+            slow=slow->next;
+            fast=fast->next->next;
         }
+        prev->next=nullptr;
+        reverseLL(&slow);
+        int ans=INT_MIN;
+        ListNode* ptr1=head, *ptr2 = slow;
+        while(ptr1){
+            ans=max(ans, ptr1->val + ptr2->val);
+            ptr1=ptr1->next;
+            ptr2=ptr2->next;
+        }
+        
+        reverseLL(&slow);
+        prev->next=slow;
+        
         return ans;
+    
     }
 };
