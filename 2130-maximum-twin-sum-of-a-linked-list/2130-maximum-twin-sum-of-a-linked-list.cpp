@@ -10,44 +10,43 @@
  */
 class Solution {
 public:
-    void reverseLL(ListNode** head){
-        ListNode* cur= *head;
-        ListNode* prev=nullptr;
-        ListNode* nextn;
-        
-        while(cur){
-            nextn=cur->next;
-            cur->next=prev;
-            prev=cur;
-            cur=nextn;
-        }
-        *head=prev;
+    void reverse(ListNode** head){
+        ListNode* curr=*head,*prev=0,*nxt;
+        while(curr){
+		     nxt=curr->next;
+			 curr->next=prev;
+			 prev=curr;
+			 curr=nxt;
+		}	 
+        *head=prev;  
     }
-    int pairSum(ListNode* head) {
-        
-        ListNode* slow=head;
-        ListNode* fast= head;
-        ListNode* prev=NULL;
-        
+
+    int pairSum(ListNode* head){
+
+        //get mid and sepearte them
+        ListNode* prev=0, *slow=head, *fast=head;
         while(fast and fast->next){
-            prev=slow;
-            slow=slow->next;
-            fast=fast->next->next;
+	       prev=slow;
+		   slow=slow->next;
+		   fast=fast->next->next;
         }
-        prev->next=nullptr;
-        reverseLL(&slow);
-        int ans=INT_MIN;
-        ListNode* ptr1=head, *ptr2 = slow;
-        while(ptr1){
-            ans=max(ans, ptr1->val + ptr2->val);
-            ptr1=ptr1->next;
-            ptr2=ptr2->next;
-        }
-        
-        reverseLL(&slow);
-        prev->next=slow;
-        
-        return ans;
+        prev->next=0;      //seperate them
+        reverse(&slow);
+   
+        //get the max sum of twins
+        int sum=0;
+        ListNode *ptr1=head, *ptr2=slow;
     
+	    while(ptr1){
+	      sum=max(sum, ptr1->val+ptr2->val );
+		  ptr1=ptr1->next ;
+		  ptr2=ptr2->next;
+        }
+ 
+        //restore linked list back again
+        reverse(&slow);   
+	    prev->next=slow; 
+   
+        return sum;
     }
 };
