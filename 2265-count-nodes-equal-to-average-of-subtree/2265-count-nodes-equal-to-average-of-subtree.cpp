@@ -11,41 +11,21 @@
  */
 class Solution {
 public:
-    void helper(TreeNode* root, int & sum,int &n,int & avg){
+    pair<int,int> helper(TreeNode* root, int & count){
         if(root==NULL)
-            return;
+            return {0,0};
         
-        if(root->left==NULL and root->right==NULL){
-            sum+=root->val;
-            n+=1;
-            avg=sum/n;
-            return;
-        }
+        auto left = helper(root->left,count);
+        auto right = helper(root->right,count);
         
-        sum+= root->val;
-        n+=1;
-        avg=sum/n;
-        helper(root->left,sum,n,avg);
-        helper(root->right,sum,n,avg);
-        return;        
-    }
-    
-    void dfs(TreeNode* root,int &count){
-        if(root==NULL)
-            return;
-        int sum=0;
-        int n=0;
-        int avg=0;
-        helper(root,sum,n,avg);
-        if(avg==root->val)
-            count++;
-        
-        dfs(root->left,count);
-        dfs(root->right,count);
+        int sum = (left.first + right.first+root->val);
+        int n = (left.second + right.second + 1);
+        count += ((sum/n)==root->val);
+        return {sum,n};
     }
     int averageOfSubtree(TreeNode* root) {
         int count=0;
-        dfs(root,count);
+        helper(root,count);
         return count;
     }
 };
