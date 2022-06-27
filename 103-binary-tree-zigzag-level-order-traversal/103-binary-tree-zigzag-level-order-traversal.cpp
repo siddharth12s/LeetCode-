@@ -22,7 +22,7 @@ public:
             int size = q.size();
             vector<int> t(size);
             for(auto i=0;i<size;i++){
-                TreeNode * f = q.front();
+                TreeNode* f=q.front();
                 q.pop();
                 if(level%2==0)  t[i]=f->val;
                 else    t[size-i-1]=f->val;
