@@ -11,37 +11,39 @@
  */
 class Solution {
 public:
-    int height( TreeNode* root){
-        if(root==NULL)
-            return 0;
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
         
-        int ls=height(root->left);
-        int rs=height(root->right);
+        queue<TreeNode *> q;
+        vector<int> t;
         
-        return max(ls,rs)+1;
-    }
-    void lot(TreeNode* root,int k,vector<int> &t){
-        
-        if(root==NULL)
-            return;
-        
-        if(k==1){
-            t.push_back(root->val);
-            return;
+        if(!root)   return ans;
+        if(root){
+            q.push(root);
+            q.push(NULL);
         }
         
-        lot(root->left,k-1,t);
-        lot(root->right,k-1,t);
-        return;
-    }
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        int h = height(root);
-        vector<vector<int>> ans;
-        for(auto i=1;i<=h;i++){
-            vector<int> t;
-            lot(root,i,t);
-            ans.push_back(t);
-        }      
+        while(!q.empty()){
+            
+            if(q.front()==NULL){
+                ans.push_back(t);
+                t.resize(0);
+                q.pop();
+                if(!q.empty())
+                    q.push(NULL);
+            }
+            else{
+                TreeNode * f=q.front();
+                t.push_back(f->val);
+                q.pop();
+                if(f->left){
+                    q.push(f->left);
+                }
+                if(f->right){
+                    q.push(f->right);
+                }
+            }
+        }
         return ans;       
     }
 };
