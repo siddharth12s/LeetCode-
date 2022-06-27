@@ -13,9 +13,7 @@ public:
     ListNode* deleteMiddle(ListNode* head) {
         ListNode* fast=head, *slow=head,*prev=NULL;
         if(head->next==NULL){
-            fast->next=NULL;
             head=NULL;
-            delete fast;
             return head;
         }
         while(fast and fast->next){
@@ -24,8 +22,6 @@ public:
             slow=slow->next;
         }
         prev->next=slow->next;
-        slow->next=nullptr;
-        delete slow;
         return head;
     }
 };
