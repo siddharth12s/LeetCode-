@@ -12,38 +12,27 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> ans;
-        
-        queue<TreeNode *> q;
-        vector<int> t;
-        
-        if(!root)   return ans;
-        if(root){
-            q.push(root);
-            q.push(NULL);
-        }
-        
-        while(!q.empty()){
+        vector<vector<int>> result;
+        queue<TreeNode*> q; q.push(root);
+        while (!q.empty())
+        {
+            int n = q.size();
+            vector<int> crtLevel; crtLevel.reserve(n);
+            for (int i = 0; i < n; i++)
+            {
+                TreeNode* p = q.front(); q.pop();
+                if (p != nullptr)
+                {
+                    crtLevel.push_back(p->val);
+                    q.push(p->left);
+                    q.push(p->right);
+                }
+            }
             
-            if(q.front()==NULL){
-                ans.push_back(t);
-                t.resize(0);
-                q.pop();
-                if(!q.empty())
-                    q.push(NULL);
-            }
-            else{
-                TreeNode * f=q.front();
-                t.push_back(f->val);
-                q.pop();
-                if(f->left){
-                    q.push(f->left);
-                }
-                if(f->right){
-                    q.push(f->right);
-                }
-            }
+            if (crtLevel.size() > 0) 
+                result.push_back(move(crtLevel));
         }
-        return ans;       
+        
+        return result;
     }
 };
