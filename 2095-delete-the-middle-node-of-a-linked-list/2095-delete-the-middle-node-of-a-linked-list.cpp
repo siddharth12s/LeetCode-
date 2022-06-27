@@ -18,7 +18,6 @@ public:
             delete fast;
             return head;
         }
-        
         while(fast and fast->next){
             fast=fast->next->next;
             prev=slow;
