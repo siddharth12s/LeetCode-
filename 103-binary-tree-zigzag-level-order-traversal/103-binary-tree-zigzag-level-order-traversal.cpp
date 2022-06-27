@@ -28,7 +28,7 @@ public:
                 else    t[size-i-1]=f->val;
                 
                 if(f->left) q.push(f->left);
-                if(f->right)    q.push(f->right);
+                if(f->right) q.push(f->right);
             }
             level++;
             ans.push_back(t);
