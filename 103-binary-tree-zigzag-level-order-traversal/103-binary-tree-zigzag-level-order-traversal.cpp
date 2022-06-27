@@ -11,59 +11,31 @@
  */
 class Solution {
 public:
-    int height( TreeNode* root){
-        if(root==NULL)
-            return 0;
-        
-        int ls=height(root->left)+1;
-        int rs=height(root->right)+1;
-        
-        return max(ls,rs);
-    }
-    void lotRL(TreeNode* root,int k,vector<int> &t){
-        
-        if(root==NULL)
-            return;
-        
-        if(k==1){
-            t.push_back(root->val);
-            return;
-        }
-        
-        lotRL(root->right,k-1,t);
-        lotRL(root->left,k-1,t);
-        return;
-    }
-    void lotLR(TreeNode* root,int k,vector<int> &t){
-        
-        if(root==NULL)
-            return;
-        
-        if(k==1){
-            t.push_back(root->val);
-            return;
-        }
-        
-        lotLR(root->left,k-1,t);
-        lotLR(root->right,k-1,t);
-        return;
-    }
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        int h = height(root);
         vector<vector<int>> ans;
-        int flag=0;
-        for(auto i=1;i<=h;i++){
-            vector<int> t;
-            if(flag==1){
-                lotRL(root,i,t);
-                flag=0;
+        if(root==NULL)
+            return ans;
+        
+        queue<TreeNode* > q;
+        q.push(root);
+        int level=0;
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> t(size);
+            
+            for(auto i=0;i<size;i++){
+                TreeNode * f = q.front();
+                q.pop();
+                
+                if(level%2==0) t[i]=f->val;
+                else    t[size-i-1]=f->val;
+                
+                if(f->left) q.push(f->left);
+                if(f->right)    q.push(f->right);
             }
-            else if(flag==0){
-                lotLR(root,i,t);
-                flag=1;
-            }
+            level++;
             ans.push_back(t);
-        }      
+        }
         return ans;
     }
 };
