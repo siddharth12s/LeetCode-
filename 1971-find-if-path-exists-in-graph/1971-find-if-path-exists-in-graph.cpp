@@ -1,31 +1,27 @@
 class Solution {
 public:
-    bool validPath(int n, vector<vector<int>>& edges, int start, int end) {
-        vector<vector<int>> graph(n);
-        // Build the graph
-        for(int i=0; i<edges.size(); i++) {
-            graph[edges[i][0]].push_back(edges[i][1]);
-            graph[edges[i][1]].push_back(edges[i][0]);
-        }
+    bool dfs(vector<vector<int>>& graph,vector<int>& vis,int s,int e){
+        if(s==e)
+            return true;
+        if(vis[s])
+            return false;
         
-        // BFS
-        queue<int> q;
-        vector<int> visited(n, 0);
-        q.push(start);
-        visited[start] = 1;
-        while(!q.empty()){
-            int top = q.front();
-            q.pop();
-            if(top == end)
+        vis[s]=1;
+        for(int i=0; i<graph[s].size(); i++){
+            if(dfs(graph, vis, graph[s][i], e))
                 return true;
-
-            for(int i=0; i<graph[top].size(); i++){
-                if(visited[graph[top][i]] == 0){
-                    q.push(graph[top][i]);
-                    visited[graph[top][i]] = 1;
-                }
-            }
         }
         return false;
+    }
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        
+        vector<vector<int>> graph(n);
+        for(auto el : edges){
+            graph[el[0]].push_back(el[1]);
+            graph[el[1]].push_back(el[0]);
+        }
+        
+        vector<int> vis(n,0);
+        return dfs(graph,vis,source,destination);
     }
 };
