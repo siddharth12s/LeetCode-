@@ -3,13 +3,16 @@ public:
     bool dfs(vector<vector<int>>& graph,vector<int>& vis,int s,int e){
         if(s==e)
             return true;
-        if(vis[s])
-            return false;
+        // if(vis[s])
+        //     return false;
         
         vis[s]=1;
-        for(int i=0; i<graph[s].size(); i++){
-            if(dfs(graph, vis, graph[s][i], e))
-                return true;
+        for(auto x : graph[s]){
+            if(!vis[x]){
+                vis[x]=1;
+                if(dfs(graph,vis,x,e))
+                    return true;
+            }
         }
         return false;
     }
