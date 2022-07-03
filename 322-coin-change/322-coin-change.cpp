@@ -1,18 +1,28 @@
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
-        int n=coins.size();
+        int n = coins.size();
         sort(coins.begin(),coins.end());
-        vector<int> val(amount+1);
-        val[0]=0;
-        for(auto i=1;i<=amount;i++){
-            val[i]=INT_MAX;
-            for(auto c : coins){
-                if(i-c<0)   break;
+        vector<vector<int>> dp(n,vector<int> (amount+1,0));
+        for(auto i=0;i<=amount;i++){
+            if(i%coins[0]==0)
+                dp[0][i]= i/coins[0];
+            else
+                dp[0][i]=1e9;
+        }
+        
+        for(auto i=1;i<n;i++){
+            for(auto j=0;j<=amount;j++){
+                int nottake = dp[i-1][j];
+                int take = INT_MAX;
+                if(coins[i]<=j)
+                    take = 1 + dp[i][j-coins[i]];
                 
-                if(val[i-c]!=INT_MAX)  val[i]=min(val[i],val[i-c]+1);
+                dp[i][j]= min(take,nottake);
             }
         }
-            return val[amount]==INT_MAX? -1: val[amount];
+        int ans =dp[n-1][amount];
+        if(ans>=1e9)    return -1;
+        return ans;
     }
 };
