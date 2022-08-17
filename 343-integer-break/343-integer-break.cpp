@@ -6,11 +6,13 @@ public:
         if(n<=2)
             return 1;
         
-        vector<int> dp(n+1,1);
-        for(auto i=3;i<=n;i++){
-            for(auto j=1;j<i;j++)
-                dp[i]=max(dp[i],max(dp[i-j]*dp[j],max(dp[i-j]*j,(i-j)*j)));
-        }
-        return dp[n];
+        if(n==3)    return 2;
+        if(n==4)    return 4;
+        
+        int k = n/3;
+        int m = n%3;
+        if(m==0)    return pow(3,k);
+        else if(m==1)   return pow(3,k-1)*4;
+        else    return pow(3,k)*2;
     }
 };
