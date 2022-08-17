@@ -1,41 +1,47 @@
 class Solution {
 public:
-   string longestPalindrome(string s) {
-        int n=s.length();
-        string s2=s;
-        reverse(s2.begin(),s2.end());
-        return LCSS(s,s2,n);
-    }
-    string LCSS(string s1, string s2, int n)
-    {
+    string lcs(int a, int b,string s,string t,vector<vector<int>> &dp){
+        for(auto i=0;i<=a;i++)
+            dp[i][0]=0;
+        for(auto i=0;i<=b;i++)
+            dp[0][i]=0;
+        
+        int ma = INT_MIN;
         string ans;
-        int DP[n+1][n+1],max=0;
-        for(int i=0; i<=n; ++i)
-        {
-            for(int j=0; j<=n; ++j)
-            {
-                if(i==0 || j==0)
-                    DP[i][j]=0;
-                else if(s1[i-1]==s2[j-1])
-                {
-                    DP[i][j]=1+DP[i-1][j-1];
-                    if(DP[i][j]>max)
-                    {
-                        string temp=s1.substr(i-DP[i][j],DP[i][j]);
-                        string revtemp=temp;
-                        reverse(revtemp.begin(),revtemp.end());
-                            if(revtemp==temp)
-                            {
-                                max=DP[i][j];
-                                ans=temp;
-                            }
+        for(auto i=1;i<=a;i++)
+            for(auto j=1;j<=b;j++)
+                if(s[i-1]==t[j-1]){
+                    dp[i][j]=1 + dp[i-1][j-1];
+                    if(ma<dp[i][j]){
+                        string temp = s.substr(i-dp[i][j],dp[i][j]);
+                        string rev = temp;
+                        reverse(rev.begin(),rev.end());
+                        if(rev==temp){
+                            ans=temp;
+                            ma=dp[i][j];
+                        }
                     }
                 }
-                else
-                    DP[i][j]=0;
-                
-            }
-        }
+                else{
+                    dp[i][j]= 0;
+                }
+
         return ans;
+    }
+    string longestPalindrome(string s) {
+        string s2=s;
+        reverse(s2.begin(),s2.end());
+        int n = s.length();
+        int m=n;
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        if(n<=2 and s!=s2){
+            char ch= s[0];
+            string ans ="";
+            ans.push_back(ch);
+            return ans;
+        }
+        else if(n<=2 and s==s2)
+            return s;
+        return lcs(n,m,s,s2,dp);
     }
 };
