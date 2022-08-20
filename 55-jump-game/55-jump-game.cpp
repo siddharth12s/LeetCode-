@@ -1,19 +1,29 @@
 class Solution {
 public:
-    bool f(vector<int>& nums,int i,vector<int>& dp){
-        if(i==nums.size()-1)    return true;
-        if(nums[i]==0)  return false;
-        if(dp[i]!=-1)   return dp[i];
-        int dest = i + nums[i];
-        for(auto jumps = i+1; jumps<= dest; jumps++){
-            if(jumps<nums.size() and f(nums,jumps,dp))
-                return dp[i]=true;
-        }
-        return dp[i]=false;
-    }
     bool canJump(vector<int>& nums) {
         int n=nums.size();
-        vector<int> dp(n,-1);
-        return f(nums,0,dp);
+        vector<int> dp(n);
+        dp[n-1]=1;
+        for(auto i=n-2;i>=0;i--){
+            if(nums[i]==0){
+                dp[i]=0;
+                continue;
+            }
+            
+            
+            int dest = i + nums[i];
+            int flag=0;
+            for(auto jumps = i+1; jumps<= dest; jumps++){
+                if(jumps<nums.size() and dp[jumps]){
+                    dp[i]=1;
+                    flag=1;
+                    break;
+                }
+                if(flag==1) continue;
+                dp[i]=0;
+            }
+        }
+        return dp[0];
+        
     }
 };
