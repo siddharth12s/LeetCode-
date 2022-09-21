@@ -10,13 +10,10 @@ public:
             m[temp].push_back(s);
         }
         
-        vector<vector<string>> ans(m.size());
+        vector<vector<string>> ans;
         int i=0;
         for(auto x : m){
-            for(auto s : x.second){
-                ans[i].push_back(s);
-            }
-            i++;
+            ans.push_back(x.second);
         }
         
         return ans;
