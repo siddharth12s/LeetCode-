@@ -4,14 +4,16 @@
 class Solution {
 public:
     int firstBadVersion(int n) {
-        int ans;
-        for(auto i=1;i<=n;i++){
-            int x  = isBadVersion(i);
-            if(x==1){
-                ans=i;
-                break;
-            }
+        int s=0,e=n;
+        // int m = s +(e-s)/2;
+        
+        while(s<e){
+            int m = s+(e-s)/2;
+            if(isBadVersion(m))
+                e = m;
+            else
+                s = m+1;
         }
-        return ans;
+        return e;
     }
 };
