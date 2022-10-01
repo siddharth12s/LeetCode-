@@ -5,13 +5,11 @@ public:
         int r=nums.size()-1;
         
         while(l<r){
-            int m1=l + (r-l)/3;
-            int m2 =  r -(r-l)/3;
-            
-            if(nums[m1]<nums[m2]){
+            int m1=l + (r-l)/2;
+            if(nums[m1]<nums[m1+1]){
                 l = m1 + 1;
             }else{
-                r=m2-1;
+                r=m1;
             }
         }
         return l;
