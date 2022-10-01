@@ -2,32 +2,21 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
 
-        vector<int> a;
-        for(auto x :matrix){
-            a.insert(a.end(),x.begin(),x.end());
+        int rows = matrix.size();
+        int colm = matrix[0].size()-1;
+        
+        int row = 0;
+        int col = colm;
+        
+        while(row<rows and col>-1){
+            if(matrix[row][col]==target)
+                return true;
+            else if(matrix[row][col]>target)
+                col--;
+            else
+                row++;
         }
         
-        int start=0;
-        int end = a.size()-1;
-        bool flag=false;
-        while(start<=end){
-            int mid = start + (end-start)/2;
-            
-            if(target<a[mid]){
-                end = mid-1;
-            }
-            else if(target==a[mid]){
-                flag=true;
-                break;
-            }
-            else{
-                start=mid+1;
-            }
-        }
-        for(auto x : a){
-            cout<<x<<" ";
-        }
-        
-        return flag;
+        return false;
     }
 };
