@@ -11,22 +11,29 @@
  */
 class Solution {
 public:
-    pair<TreeNode*,int> dfs(TreeNode* root){
-        if(root==NULL){
-            return {NULL,0};
-        }
+    int height(TreeNode* root){
+        if(root==NULL)
+            return 0;
         
-        auto ls = dfs(root->left);
-        auto rs =  dfs(root->right);
+        int ls = height(root->left)+1;
+        int rs = height(root->right)+1;
         
-        if(ls.second>rs.second)
-            return {ls.first,ls.second+1};
-        if(ls.second<rs.second)
-            return {rs.first,rs.second+1};
-        
-        return {root,ls.second+1};
+        return max(ls,rs);
     }
+    
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        return dfs(root).first;
+        if(root==NULL)
+            return NULL;
+        
+        int ld = height(root->left);
+        int rd = height(root->right);
+        
+        if(ld==rd)
+            return root;
+        
+        if(ld>rd)
+            return lcaDeepestLeaves(root->left);
+        
+        return lcaDeepestLeaves(root->right);
     }
 };
