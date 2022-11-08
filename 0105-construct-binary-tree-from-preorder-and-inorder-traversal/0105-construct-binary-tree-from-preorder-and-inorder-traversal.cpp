@@ -11,15 +11,8 @@
  */
 class Solution {
 public:
-    int search(vector<int> &ino, int elem, int n){
-        
-        for(auto i=0;i<n;i++){
-            if(ino[i]==elem)
-                return i;
-        }
-        return -1;
-    }
-    TreeNode* solve(vector<int> &pre,vector<int> &ino, int &index,int inoStart, int inoEnd, int n){
+    
+    TreeNode* solve(vector<int> &pre,vector<int> &ino, int &index,int inoStart, int inoEnd, int n,unordered_map<int,int> &m){
         
         if(index>=n or inoStart> inoEnd){
             return nullptr;
@@ -27,17 +20,21 @@ public:
         
         int elem = pre[index++];
         TreeNode* root = new TreeNode(elem);
-        int pos = search(ino,elem,n);
+        int pos = m[elem];
         
-        root->left = solve(pre,ino,index,inoStart,pos-1,n);
-        root->right = solve(pre,ino,index,pos+1,inoEnd,n);
+        root->left = solve(pre,ino,index,inoStart,pos-1,n,m);
+        root->right = solve(pre,ino,index,pos+1,inoEnd,n,m);
         
         return root;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         int n = inorder.size();
+        unordered_map<int,int> m;
+        for(auto i=0;i<n;i++){
+            m[inorder[i]]=i;
+        }
         int preIndex=0;
-        TreeNode* ans = solve(preorder,inorder,preIndex,0,n-1,n);
+        TreeNode* ans = solve(preorder,inorder,preIndex,0,n-1,n,m);
         return ans;
     }
 };
