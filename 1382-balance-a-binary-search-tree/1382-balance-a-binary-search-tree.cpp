@@ -21,7 +21,7 @@ public:
         return;
     }
     
-    TreeNode* intoBST(int s,int e,vector<int> v){
+    TreeNode* intoBST(int s,int e,vector<int>& v){
         
         if(s>e){
             return NULL;
