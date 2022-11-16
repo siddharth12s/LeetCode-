@@ -14,7 +14,6 @@ public:
         
         int m = grid.size();
         int n =  grid[0].size();
-        vector<vector<int>> vis(m,vector<int>(n,0));
         
         for(auto i=0;i<m;i++){
             for(auto j=0;j<n;j++){
