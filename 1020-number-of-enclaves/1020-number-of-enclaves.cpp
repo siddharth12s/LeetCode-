@@ -1,14 +1,14 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>> &grid,vector<vector<int>> &vis,int i,int j){
-        if(i<0 or i>=grid.size() or j<0 or j>=grid[0].size() or grid[i][j]!=1 or vis[i][j])
+    void dfs(vector<vector<int>> &grid,int i,int j){
+        if(i<0 or i>=grid.size() or j<0 or j>=grid[0].size() or grid[i][j]!=1)
             return;
         
-        vis[i][j]=1;
-        dfs(grid,vis,i+1,j);
-        dfs(grid,vis,i,j+1);
-        dfs(grid,vis,i-1,j);
-        dfs(grid,vis,i,j-1);
+        grid[i][j]=2;
+        dfs(grid,i+1,j);
+        dfs(grid,i,j+1);
+        dfs(grid,i-1,j);
+        dfs(grid,i,j-1);
     }
     int numEnclaves(vector<vector<int>>& grid) {
         
@@ -20,7 +20,7 @@ public:
             for(auto j=0;j<n;j++){
                 if(i==0 or i==m-1 or j==0 or j==n-1){
                     if(grid[i][j]==1)
-                        dfs(grid,vis,i,j);
+                        dfs(grid,i,j);
                 }
             }
         }
@@ -28,7 +28,7 @@ public:
         int ans=0;
         for(auto i=0;i<m;i++){
             for(auto j=0;j<n;j++){
-                if(grid[i][j]==1 and !vis[i][j])
+                if(grid[i][j]==1)
                     ans++;
             }
         }
