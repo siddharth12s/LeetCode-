@@ -17,14 +17,10 @@ public:
     int shortestBridge(vector<vector<int>>& grid) {
         
         int m = grid.size();
-        int n = grid[0].size();
-        
-        // vector<vector<int>> vis(m,vector<int> (n,0));
-        // queue<pair<int,int>> q;
         int flag=0;
         
         for(auto i=0;i<m;i++){
-            for(auto j=0;j<n;j++){
+            for(auto j=0;j<m;j++){
                 if(grid[i][j]==1){
                     dfs(grid,i,j);
                     flag=1;
@@ -38,7 +34,7 @@ public:
         vector<pair<int,int>> p1,p2;
         
         for(auto i=0;i<m;i++){
-            for(auto j=0;j<n;j++){
+            for(auto j=0;j<m;j++){
                 if(grid[i][j]==2)
                     p1.push_back({i,j});
                 else if(grid[i][j]==1)
