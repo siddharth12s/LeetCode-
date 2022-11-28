@@ -12,7 +12,7 @@ public:
         
         vector<int> zero,one;
         
-        for(auto x : lost){
+        for(auto &x : lost){
             
             auto [i,j] = x;
             
