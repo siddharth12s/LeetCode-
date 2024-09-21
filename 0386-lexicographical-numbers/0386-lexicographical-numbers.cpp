@@ -1,18 +1,19 @@
 class Solution {
 public:
-    void dfs(int temp,int n,vector<int>& ans){
-        
-        if(temp>n)
-            return;
-        ans.push_back(temp);
-        dfs(temp*10,n,ans);
-        if(temp%10!=9){
-            dfs(temp+1,n,ans);
-        }
-    }
     vector<int> lexicalOrder(int n) {
         vector<int> ans;
-        dfs(1,n,ans);
+
+        vector<string> str;
+        for(auto i=1;i<=n;i++){
+            str.push_back(to_string(i));
+        }
+
+        sort(str.begin(),str.end());
+
+        for(auto ch : str){
+            ans.push_back(stoi(ch));
+        }
+
         return ans;
     }
 };
