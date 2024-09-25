@@ -18,6 +18,6 @@ public:
             }
         }
 
-        return pq.top();
+        return pq.empty()?0:pq.top();
     }
 };
