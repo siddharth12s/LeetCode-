@@ -1,18 +1,15 @@
 class Solution {
 public:
     char kthCharacter(int k) {
-        string s = "a";
+        int cnt = 0;
+        k-=1;
+        while(k){
+            if(k&1)
+                cnt++;
 
-        while(s.size()<k){
-            string temp = "";
-            for(auto ch : s){
-                if(ch=='z') temp.push_back('a');
-                temp.push_back(ch+1);
-            }
-            cout<<temp<<endl;
-            s+=temp;
+            k>>=1;
         }
 
-        return s[k-1];
+        return char('a' + cnt);
     }
 };
