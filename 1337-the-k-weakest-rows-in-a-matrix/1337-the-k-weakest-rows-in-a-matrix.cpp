@@ -1,5 +1,18 @@
+struct CompareHeap{
+    bool operator()(pair<int,int> &p1, pair<int,int> &p2){
+        if(p1.first<p2.first)
+            return true;
+        else if(p1.first==p2.first && p1.second<p2.second)
+            return true;
+
+        return false;
+    }
+};
+
 class Solution {
 public:
+
+    
     int count_ones(vector<int> &m){
         int start=0,end=m.size()-1;
 
@@ -15,7 +28,7 @@ public:
     }
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
         // vector<int> m(mat.size(),0);
-        priority_queue<pair<int,int> ,vector<pair<int,int>>> pq;
+        priority_queue<pair<int,int> ,vector<pair<int,int>>, CompareHeap> pq;
 
         for(auto i=0;i<mat.size();i++){
             int cnt=count_ones(mat[i]);
