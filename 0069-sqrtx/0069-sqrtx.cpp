@@ -1,7 +1,7 @@
 class Solution {
 public:
     int mySqrt(int x) {
-        int start=1,end=x+1;
+        long long start=1, end=(long long)x+1;
         while(start<end){
             long long mid = start + (end-start)/2;
             if(mid*mid>x){
