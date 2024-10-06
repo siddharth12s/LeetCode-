@@ -1,7 +1,7 @@
 class Solution {
 public:
     int binary_search(vector<int> &v, int target){
-        int start = 0, end = v.size()-1;
+        int start = 0, end = v.size();
         while(start<end){
             int mid = start + (end-start)/2;
             if(v[mid]==target){
