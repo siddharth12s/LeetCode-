@@ -1,29 +1,31 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        
-        int n = nums.size();
-        int l =0, r=n-1;
-        
-        while(l<=r){
-            int m = l + (r-l)/2;
-            int s = m-l;
-            
-            if(m and nums[m]==nums[m-1]){
-                if(s%2==0)
-                    r=m-2;
-                else
-                    l=m+1;
+        int start=0,end=nums.size()-1;
+
+
+        // the single element will break the chain of  pair of index
+        // (even,odd)(even,odd)(single element)(odd,even)(odd,even)
+        while(start<=end){
+            int mid = start + (end-start)/2;
+            int index = mid-start;
+
+            if(mid>0 and nums[mid]==nums[mid-1]){
+                if(index%2){
+                    start=mid+1;
+                }else{
+                    end=mid-2;
+                }
+            }else if(mid+1<nums.size() and nums[mid]==nums[mid+1]){
+                if(index%2){
+                    end=mid-1;
+                }else{
+                    start=mid+2;
+                }
+            }else{
+                return nums[mid];
             }
-            else if(m+1<n and nums[m]==nums[m+1]){
-                if(s%2==0)
-                    l=m+2;
-                else
-                    r=m-1;
-            }
-            
-            else return nums[m];
-        }
-        return -1;
+        }  
+        return -1; 
     }
 };
