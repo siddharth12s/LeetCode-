@@ -1,25 +1,20 @@
 class Solution {
 public:
     int minLength(string s) {
-        stack<char> st;
+        vector<char> st;
 
         for(auto ch : s){
-            if(st.empty()){
-                st.push(ch);
+            if(st.size()==0){
+                st.push_back(ch);
                 continue;
             }
 
-            if((ch=='B' && st.top()=='A') || (ch=='D' && st.top()=='C')){
-                st.pop();
+            if((ch=='B' && st.back()=='A') || (ch=='D' && st.back()=='C')){
+                st.pop_back();
             }else{
-                st.push(ch);
+                st.push_back(ch);
             }
         }
-
-        // while(!st.empty()){
-        //     cout<<st.top()<<endl;
-        //     st.pop();
-        // }
         return st.size();
     }
 };
