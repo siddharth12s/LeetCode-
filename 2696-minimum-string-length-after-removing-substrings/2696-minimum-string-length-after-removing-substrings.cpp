@@ -3,7 +3,7 @@ public:
     int minLength(string s) {
         vector<char> st;
 
-        for(auto ch : s){
+        for(auto &ch : s){
             if(st.size()==0){
                 st.push_back(ch);
                 continue;
