@@ -6,7 +6,7 @@ public:
 
         for(auto x : v){
             sum += x;
-            if(sum>=check_sum){
+            if(sum>check_sum){
                 sum = x;
                 cnt++;
                 if(cnt>k)
@@ -16,9 +16,11 @@ public:
         return true;
     }
     int splitArray(vector<int>& nums, int k) {
-        int start =  *min_element(nums.begin(),nums.end());
+        int start =  *max_element(nums.begin(),nums.end());
         int end = 0;
         for(auto x : nums)  end+=x;
+
+        // end-=start+1;
 
         while(start<end){
             int mid = start + (end-start)/2;
@@ -29,6 +31,6 @@ public:
             }
         }
 
-        return start-1;
+        return start;
     }
 };
