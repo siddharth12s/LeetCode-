@@ -2,7 +2,7 @@ class Solution {
 public:
     int possible(vector<int> &v, int day,int m, int k){
         int cnt = 0;
-        int check = 0;
+        long long check = 0;
         for(auto x : v){
             if(x<=day){
                 cnt++;
@@ -16,7 +16,7 @@ public:
         return check>=m;
     }
     int minDays(vector<int>& bloomDay, int m, int k) {
-        if(m*k>bloomDay.size())
+        if((long long)m*(long long)k>bloomDay.size())
             return -1;
 
         vector<int> temp = bloomDay;
