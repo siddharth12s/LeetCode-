@@ -24,12 +24,12 @@ public:
 
 
         int ans = -1;
-        int start = mini, end = maxi+1;
+        int start = mini, end = maxi;
 
-        while(start<end){
+        while(start<=end){
             int mid = start+ (end-start)/2;
             if(possible(bloomDay,mid,m,k)){
-                end=mid;
+                end=mid-1;
             }else{
                 start=mid+1;
             }
