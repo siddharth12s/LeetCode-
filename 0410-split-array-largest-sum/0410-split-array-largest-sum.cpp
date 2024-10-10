@@ -20,7 +20,6 @@ public:
         int end = 0;
         for(auto x : nums)  end+=x;
 
-        // end-=start+1;
 
         while(start<end){
             int mid = start + (end-start)/2;
