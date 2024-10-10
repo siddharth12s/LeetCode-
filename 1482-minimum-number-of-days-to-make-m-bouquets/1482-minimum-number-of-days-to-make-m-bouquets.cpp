@@ -19,21 +19,22 @@ public:
         if((long long)m*(long long)k>bloomDay.size())
             return -1;
 
-        vector<int> temp = bloomDay;
-        sort(temp.begin(),temp.end());
+        int maxi = *max_element(bloomDay.begin(),bloomDay.end());
+        int mini = *min_element(bloomDay.begin(),bloomDay.end());
+
 
         int ans = -1;
-        int start = 0, end = bloomDay.size()-1;
+        int start = mini, end = maxi+1;
 
         while(start<end){
             int mid = start+ (end-start)/2;
-            if(possible(bloomDay,temp[mid],m,k)){
+            if(possible(bloomDay,mid,m,k)){
                 end=mid;
             }else{
                 start=mid+1;
             }
         }
 
-        return temp[start];
+        return start;
     }
 };
