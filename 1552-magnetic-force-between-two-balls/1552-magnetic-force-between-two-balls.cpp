@@ -21,15 +21,16 @@ public:
         int min_elem = *min_element(position.begin(),position.end());
 
         int start = 1,end=max_elem-min_elem;
-
+        int ans = end;
         while(start<=end){
             int mid = start + (end-start)/2;
             if (!feasible(position,m,mid)){
                 end=mid-1;
             }else{
+                ans = mid;
                 start=mid+1;
             }
         }
-        return start-1;
+        return ans;
     }
 };
