@@ -16,9 +16,9 @@ public:
     }
     int maxDistance(vector<int>& position, int m) {
         sort(position.begin(),position.end());
-        
-        int max_elem = *max_element(position.begin(),position.end());
-        int min_elem = *min_element(position.begin(),position.end());
+        int n = position.size();
+        int max_elem = position[n-1];
+        int min_elem = position[0];
 
         int start = 1,end=max_elem-min_elem;
         int ans = end;
