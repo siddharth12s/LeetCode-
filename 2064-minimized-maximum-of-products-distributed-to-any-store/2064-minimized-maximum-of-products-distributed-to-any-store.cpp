@@ -1,23 +1,23 @@
 class Solution {
 public:
-    bool feasible(vector<int> &v, int n, int mid){
-        int cnt = 0;
+    bool feasible(vector<int> &v, int n, long long mid){
+        long long cnt = 0;
         for(auto x : v){
-            cnt += (x+mid-1)/mid;
+            cnt += (long long)((x+mid-1))/mid;
             if(cnt>n)
                 return true;
         }
         return false;
     }
     int minimizedMaximum(int n, vector<int>& quantities) {
-        int start =1, end=0;
+        long long start =1, end=0;
         for(auto &x : quantities){
             end += x;
         }
 
-        
+
         while(start<=end){
-            int mid = start+(end-start)/2;
+            auto mid = start+(end-start)/2;
             if(feasible(quantities,n,mid)){
                 start=mid+1;
             }else{
