@@ -1,15 +1,15 @@
 class Solution {
 public:
     bool feasible(string text, string pattern, int idx,vector<int> &rem){
-        vector<int> v(text.size(),0);
-
+        // vector<int> v(text.size(),0);
+        string temp = text;
         for(auto i=0;i<idx;i++){
-            v[rem[i]]=1;
+            text[rem[i]]='$';
         }
 
         int i=0,j=0;
         while(i<text.size() and j<pattern.size()){
-            if(text[i]==pattern[j] and !v[i]){
+            if(text[i]==pattern[j] and text[i]!='$'){
                 i++;
                 j++;
             }else{
