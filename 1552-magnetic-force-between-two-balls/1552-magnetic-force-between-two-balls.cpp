@@ -27,10 +27,10 @@ public:
             if (!feasible(position,m,mid)){
                 end=mid-1;
             }else{
-                ans = mid;
+                // ans = mid;
                 start=mid+1;
             }
         }
-        return ans;
+        return end;
     }
 };
