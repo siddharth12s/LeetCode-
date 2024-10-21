@@ -1,24 +1,28 @@
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
 
-        int rows = matrix.size();
-        int colm = matrix[0].size()-1;
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
-        int row = 0;
-        int col = colm;
-        
-        while(row<rows and col>-1){
-            if(matrix[row][col]==target)
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        int start=0,end=n*m-1;
+
+        while(start<=end){
+            int mid = start+(end-start)/2;
+
+            int row = mid/m;
+            int col = mid%m;
+
+            if(matrix[row][col]==target){
                 return true;
-            else if(matrix[row][col]>target)
-                col--;
-            else
-                row++;
+            }else if(matrix[row][col]>target){
+                end=mid-1;
+            }else{
+                start=mid+1;
+            }
         }
-        
+
         return false;
     }
 };
