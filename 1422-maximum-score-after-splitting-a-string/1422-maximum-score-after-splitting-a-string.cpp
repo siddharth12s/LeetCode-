@@ -4,23 +4,26 @@ public:
         
         int ans = INT_MIN;
 
-        for(auto i=1;i<s.size();i++){
-            auto left = s.substr(0,i);
-            auto right = s.substr(i,(s.size()-i));
+        int n = s.size();
 
-            int zero = 0;
-            for(auto &ch : left){
-                if (ch=='0')
-                    zero++;
+        for(auto i=1;i<n;i++){
+            string s1 = s.substr(0,i);
+            string s2 = s.substr(i,(n-i));
+
+            int cnt_zero=0,cnt_one=0;
+
+            for(auto &ch : s1){
+                if(ch=='0')
+                    cnt_zero++;
             }
 
-            int one = 0;
-            for(auto &ch : right){
+            for(auto &ch : s2){
                 if(ch=='1')
-                    one++;
+                    cnt_one++;
             }
 
-            ans=max(ans,one+zero);
+            ans = max(ans,cnt_zero+cnt_one);
+
         }
 
         return ans;
