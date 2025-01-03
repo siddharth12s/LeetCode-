@@ -2,10 +2,7 @@ class Solution {
 public:
     int waysToSplitArray(vector<int>& nums) {
         int n = nums.size();
-        // vector<int> presum(n,0);
         long long rightsum = 0, leftsum=0;
-
-        // presum[0] = nums[0];
 
         for(auto i=0;i<n;i++){
             rightsum += nums[i];
