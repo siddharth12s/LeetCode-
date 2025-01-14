@@ -4,7 +4,7 @@ public:
         vector<int> ans;
 
         for(auto i=0;i<A.size();i++){
-            set<int> st;
+            unordered_set<int> st;
             for(auto j=0;j<=i;j++){
                 st.insert(A[j]);
             }
