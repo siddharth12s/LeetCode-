@@ -6,7 +6,7 @@ public:
         int curr_sum = prev;
 
         for(auto i=1;i<nums.size();i++){
-            if(nums[i]<prev){
+            if(nums[i]<=prev){
                 curr_sum=nums[i];
                 prev=nums[i];
                 cout<<curr_sum<<endl;
